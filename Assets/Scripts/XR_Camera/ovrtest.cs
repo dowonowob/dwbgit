@@ -10,7 +10,6 @@ public class ovrtest : MonoBehaviour
     // 매 프레임 업데이트
     void Update()
     {
-        Debug.Log("Update 메서드 호출됨"); // Update 메서드 호출 시 로그 추가
         BtnDown();
     }
 
@@ -18,14 +17,14 @@ public class ovrtest : MonoBehaviour
     void BtnDown()
     {
         // A 버튼 클릭 시
-        if (OVRInput.GetDown(OVRInput.Button.One))
+        if (OVRInput.Get(OVRInput.Button.One))
         {
             HandleClick();
             Debug.Log("A 버튼 클릭 감지"); // A 버튼 클릭 시 로그 추가
         }
 
         // B 버튼 클릭 시
-        if (OVRInput.GetDown(OVRInput.Button.Two))
+        if (OVRInput.Get(OVRInput.Button.Two))
         {
             Debug.Log("B 버튼 클릭 감지"); // B 버튼 클릭 시 로그 추가
             HandleClick();
