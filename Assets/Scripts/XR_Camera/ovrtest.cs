@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ovrtest : MonoBehaviour
 {
-    // 카메라 트랜스폼 (XR Origin에 있는 카메라 오브젝트 참조)
-    public Transform cameraTransform;
+    // Right Controller의 트랜스폼 (XR Origin의 Right Controller 참조)
+    public Transform ControllerTransform;
 
     // 매 프레임 업데이트
     void Update()
@@ -36,11 +36,14 @@ public class ovrtest : MonoBehaviour
     {
         RaycastHit hit;
 
-        // 카메라의 위치에서 카메라가 보는 방향으로 레이 발사
-        Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
+        // 컨트롤러의 위치에서 컨트롤러가 보는 방향으로 레이 발사
+        Ray ray = new Ray(ControllerTransform.position, ControllerTransform.forward);
+
+        // 레이를 시각적으로 그립니다 (길이를 1000으로 설정)
+        Debug.DrawRay(ControllerTransform.position, ControllerTransform.forward * 3000, Color.red, 15.0f);
 
         // 레이가 충돌한 오브젝트 확인
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, 1000)) // Raycast의 거리도 1000으로 설정
         {
             Debug.Log("Hit object: " + hit.collider.name); // 충돌한 오브젝트 이름 출력
 
