@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 84589891}
   - component: {fileID: 84589890}
   - component: {fileID: 84589889}
+  - component: {fileID: 84589894}
   m_Layer: 0
   m_Name: Left Controller
   m_TagString: Untagged
@@ -586,6 +587,19 @@ MonoBehaviour:
   m_MoveObjectOut: 15
   m_DirectionalAnchorRotation: 1
   m_PoseProvider: {fileID: 0}
+--- !u!114 &84589894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84589887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3e01080770951545b743df43e38cc0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ControllerTransform: {fileID: 84589888}
 --- !u!1 &493550723
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,7 +787,7 @@ Transform:
   m_GameObject: {fileID: 993074673}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.1176, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -794,7 +808,8 @@ GameObject:
   - component: {fileID: 1010063637}
   - component: {fileID: 1010063636}
   - component: {fileID: 1010063635}
-  - component: {fileID: 1010063639}
+  - component: {fileID: 1010063640}
+  - component: {fileID: 1010063641}
   m_Layer: 0
   m_Name: StorePlane
   m_TagString: Untagged
@@ -819,7 +834,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -883,13 +898,34 @@ Transform:
   m_GameObject: {fileID: 1010063634}
   serializedVersion: 2
   m_LocalRotation: {x: -0.29261878, y: -0.25447786, z: 0.695523, w: 0.60486615}
-  m_LocalPosition: {x: 20, y: 16, z: 25}
+  m_LocalPosition: {x: 11.85, y: 10.79, z: 16.67}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -45.635, z: 97.976}
---- !u!114 &1010063639
+--- !u!65 &1010063640
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1010063634}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10.000003, y: 0.0000012665987, z: 10.000002}
+  m_Center: {x: -0.00000047683716, y: 0, z: 0}
+--- !u!114 &1010063641
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -958,7 +994,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1396083918}
   - component: {fileID: 1396083917}
-  - component: {fileID: 1396083919}
   - component: {fileID: 1396083920}
   m_Layer: 0
   m_Name: XR Origin (XR Rig)
@@ -1000,19 +1035,6 @@ Transform:
   - {fileID: 993074674}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1396083919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1396083916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3e01080770951545b743df43e38cc0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraTransform: {fileID: 993074674}
 --- !u!114 &1396083920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1099,6 +1121,7 @@ GameObject:
   - component: {fileID: 1411016180}
   - component: {fileID: 1411016179}
   - component: {fileID: 1411016178}
+  - component: {fileID: 1411016183}
   m_Layer: 0
   m_Name: Right Controller
   m_TagString: Untagged
@@ -1549,6 +1572,19 @@ MonoBehaviour:
   m_MoveObjectOut: 15
   m_DirectionalAnchorRotation: 1
   m_PoseProvider: {fileID: 0}
+--- !u!114 &1411016183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1411016176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3e01080770951545b743df43e38cc0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ControllerTransform: {fileID: 1411016177}
 --- !u!1 &1648169406
 GameObject:
   m_ObjectHideFlags: 0
@@ -1577,7 +1613,7 @@ Transform:
   m_GameObject: {fileID: 1648169406}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.76, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

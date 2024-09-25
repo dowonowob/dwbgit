@@ -8,13 +8,7 @@ public class ObjectClick : MonoBehaviour
     // 씬을 전환하는 메서드
     public void LoadScene()
     {
-        if (!string.IsNullOrEmpty(sceneName))
-        {
-            SceneManager.LoadScene(sceneName); // 설정된 씬으로 전환
-        }
-        else
-        {
-            Debug.LogError("씬 이름이 설정되지 않았습니다.");
-        }
+        // 씬을 로드하는 코드 (예시)
+        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
     }
 }
