@@ -1,16 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class ovrtest : MonoBehaviour
 {
     // Right Controller의 트랜스폼 (XR Origin의 Right Controller 참조)
     public Transform ControllerTransform;
+    // Main Camera의 트랜스폼(플레이어의 시점)
+    public Transform CameraTransform;
+    // 조이스틱 입력 최소값 (이 값 이상으로 움직여야 작동)
+    public float cameraInputThreshold = 0.1f;
+    // 플레이어의 이동 속도
+    public float moveSpeed = 2.0f;
+    // 플레이어 시점의 카메라 회전 속도
+    public float rotateSpeed = 100.0f;
+    // 플레이어의 시점 제한
+    public float pitchMin = -85f; // 아래로 85도 까지
+    public float pitchMax = 85f; // 위로 85도 까지
 
     // 매 프레임 업데이트
     void Update()
     {
         BtnDown();
+        MoveCamera();
     }
 
     // 버튼 입력 처리
@@ -53,6 +66,60 @@ public class ovrtest : MonoBehaviour
             {
                 objectClick.LoadScene(); // 클릭된 오브젝트의 LoadScene 메서드 호출
             }
+        }
+    }
+
+    void MoveCamera()
+    {
+        // 왼쪽 컨트롤러의 조이스틱 입력값 받기
+        Vector2 joystickInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
+
+        // 조이스틱 입력의 절대값이 일정 수치 이상일 때 작동 (진동 등의 미세한 움직임에 의한 이동 방지)
+        if (Mathf.Abs(joystickInput.x) > cameraInputThreshold || Mathf.Abs(joystickInput.y) > cameraInputThreshold)
+        {
+            // 조이스틱 x축으로 수평 이동
+            float moveX = joystickInput.x * moveSpeed * Time.deltaTime;
+
+            // 조이스틱 y축으로 수직 이동
+            float moveZ = joystickInput.y * moveSpeed * Time.deltaTime;
+
+            // 카메라의 현재 위치를 기준으로 이동 적용
+            Vector3 moveDirection = new Vector3(moveX, 0, moveZ);
+
+            // 카메라의 로컬 좌표계를 기준으로 이동
+            CameraTransform.Translate(moveDirection);
+
+            Debug.Log("조이스틱 입력 감지: X=" + joystickInput.x + " Y=" + joystickInput.y);
+        }
+    }
+
+    void RotateCamera()
+    {
+        // 오른쪽 컨트롤러의 조이스틱 입력 값 받기
+        Vector2 joystickInput = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick);
+
+        // 조이스틱 입력의 절대값이 일정 수치 이상일 때 작동 (진동 등의 미세한 움직임에 의한 이동 방지)
+        if (Mathf.Abs(joystickInput.x) > cameraInputThreshold || Mathf.Abs(joystickInput.y) > cameraInputThreshold)
+        {
+            // 조이스틱 x축을 기준으로 수평 회전 (Yaw 회전)
+            float rotateY = joystickInput.x * rotateSpeed * Time.deltaTime;
+
+            // 조이스틱 y축을 기준으로 수직 회전 (Pitch 회전)
+            float rotateX = -joystickInput.y * rotateSpeed * Time.deltaTime;  // 위로 밀면 아래로 회전하므로 반대 방향으로
+
+            // 현재 Pitch 값을 제한
+            float currentPitch = CameraTransform.eulerAngles.x;
+
+            // eulerAngles는 0~360도 범위로 나오므로 이를 -180~180도로 변환
+            if (currentPitch > 180) currentPitch -= 360;
+
+            // 새로운 Pitch 값 계산 및 제한 적용
+            float newPitch = Mathf.Clamp(currentPitch + rotateX, pitchMin, pitchMax);
+
+            // 카메라의 회전 적용 (Pitch와 Yaw만, Roll은 그대로 유지)
+            CameraTransform.eulerAngles = new Vector3(newPitch, CameraTransform.eulerAngles.y + rotateY, 0);
+
+            Debug.Log("오른쪽 조이스틱 입력 감지: X=" + joystickInput.x + " Y=" + joystickInput.y);
         }
     }
 }
